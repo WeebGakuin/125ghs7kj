@@ -5569,6 +5569,17 @@ function init() {
         `mdui-theme-primary-${UI.main_color} mdui-theme-accent-${UI.accent_color}`
     );
     var html = `
+<div class=”widget”>
+	<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+	<script>
+  	kofiWidgetOverlay.draw('weebgakuin0', {
+    	'type': 'floating-chat',
+    	'floating-chat.donateButton.text': 'Support Us',
+    	'floating-chat.donateButton.background-color': '#323842',
+    	'floating-chat.donateButton.text-color': '#fff'
+  	});
+	</script>
+</div>    
 <div class="mdui-container">
 	<div class="mdui-container-fluid">
 		<div id="nav" class="mdui-toolbar nexmoe-item nav-style"> </div>

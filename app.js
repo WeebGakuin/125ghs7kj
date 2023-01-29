@@ -5853,7 +5853,7 @@ function append_files_to_list(path, files) {
     var short_name = ""
     html = "";
     let targetFiles = [];
-    let regex = "(?P<title>.*?)(?: - ?(?P<season_episode>[A-Z0-9.]+[^ ]|\d+-\d+)?(?P<version>v\d+)?)? - (?P<dub>[A-Z]+[^ ])? ?(?P<uncut>UNCUT)? ?(?P<resolution>\d+p|\d+i) (?P<type>.*?) (?P<codec>.*?) -(?P<tag>.*?) \((?P<source>.*?)\).*?(?:\((?P<all_dub>((.*) Dub))\))?$$"
+    let regex = "(.*? - )( ?([A-Z0-9.]+[^ ]|\d+-\d+)?(v\d+)?)?"
     for (i in files) {
         var item = files[i];
         var p = path + encodeURIComponent(item.name).replaceAll("%5C", "%5C%5C").replace(/[!'()*]/g, escape) + "/";		// Adding folder name to url 
@@ -5864,9 +5864,8 @@ function append_files_to_list(path, files) {
         item.size = formatFileSize(item.size);
         let short_name = item.name
         if (regex.test(item.name)) {
-            let matched = regex.exec(item.name);
-            let to_replace = matched.groups.title + " - ";
-            short_name = string.replace(to_replace, "");
+            let matches = string.match(regex);
+            let short_name = string.replace(matches[1], '');
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">

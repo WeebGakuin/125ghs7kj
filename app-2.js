@@ -5862,9 +5862,9 @@ function append_files_to_list(path, files) {
         item.modifiedTime = utc2local(item.modifiedTime);
         item.size = formatFileSize(item.size);
         let short_name = item.name
-        let matches = string.match(regex);
+        let matches = short_name.match(regex);
         if (matches != null) {
-            short_name = string.replace(matches[1], '');
+            short_name = short_name.replace(matches[1], '');
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">

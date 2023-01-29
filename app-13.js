@@ -5863,13 +5863,15 @@ function append_files_to_list(path, files) {
         item.modifiedTime = utc2local(item.modifiedTime);
         item.size = formatFileSize(item.size);
         let short_name = item.name
-        let matches = short_name.match(pregex);
-        let smatches = short_name.match(sregex)
-        if (matches != null) {
-            short_name = short_name.replace(matches[1], '');
+        if (short_name.includes(".mkv")) {
+            let matches = short_name.match(pregex);
+            let smatches = short_name.match(sregex)
+            if (matches != null) {
+                short_name = short_name.replace(matches[1], '');
+            }
+            if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(smatches != null)&&(matches!=null)) {
+                short_name = "S0" + smatches[1] + " - " + short_name
         }
-        if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(smatches != null)&&(matches!=null)) {
-            short_name = "S0" + smatches[1] + " - " + short_name
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">

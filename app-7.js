@@ -5852,7 +5852,7 @@ function append_files_to_list(path, files) {
     var is_firstpage = "0" == $list.data("curPageIndex");
     html = "";
     let targetFiles = [];
-    let regex = "(.*? - )( ?([A-Z0-9.]+[^ ]|\d+-\d+)?(v\d+)?)?"
+    var pregex = "(.*? - )( ?([A-Z0-9.]+[^ ]|\d+-\d+)?(v\d+)?)?"
     for (i in files) {
         var item = files[i];
         var p = path + encodeURIComponent(item.name).replaceAll("%5C", "%5C%5C").replace(/[!'()*]/g, escape) + "/";		// Adding folder name to url 
@@ -5862,10 +5862,9 @@ function append_files_to_list(path, files) {
         item.modifiedTime = utc2local(item.modifiedTime);
         item.size = formatFileSize(item.size);
         let short_name = item.name
-        let matches = short_name.match(regex);
+        let matches = short_name.match(pregex);
         if (matches != null) {
             short_name = short_name.replace(matches[1], '');
-	    console.log(short_name);
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">
@@ -5914,7 +5913,7 @@ function append_files_to_list(path, files) {
                 item["size"] = "— — —";
             }
             html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a gd-type="${item.mimeType}" href="${p}" class="${c}">
-	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
+	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${short_name}">
 	          <i class="mdui-icon material-icons">insert_drive_file</i>
 	            ${item.name}
 	          </div>

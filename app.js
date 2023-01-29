@@ -5850,10 +5850,9 @@ function append_files_to_list(path, files) {
     var $list = $("#list");
     var is_lastpage_loaded = null === $list.data("nextPageToken");
     var is_firstpage = "0" == $list.data("curPageIndex");
-    var short_name = ""
     html = "";
     let targetFiles = [];
-    let regex = "(.*? - )( ?([A-Z0-9.]+[^ ]|\d+-\d+)?(v\d+)?)?"
+    var pregex = "(.*? - )( ?([A-Z0-9.]+[^ ]|\d+-\d+)?(v\d+)?)?"
     for (i in files) {
         var item = files[i];
         var p = path + encodeURIComponent(item.name).replaceAll("%5C", "%5C%5C").replace(/[!'()*]/g, escape) + "/";		// Adding folder name to url 
@@ -5863,15 +5862,15 @@ function append_files_to_list(path, files) {
         item.modifiedTime = utc2local(item.modifiedTime);
         item.size = formatFileSize(item.size);
         let short_name = item.name
-        if (regex.test(item.name)) {
-            let matches = string.match(regex);
-            let short_name = string.replace(matches[1], '');
+        let matches = short_name.match(pregex);
+        if (matches != null) {
+            short_name = short_name.replace(matches[1], '');
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">
-	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${short_name}">
+	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
 	            <i class="mdui-icon material-icons">folder_open</i>
-	              ${item.name}
+	              ${short_name}
 	            </div>
 	            <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
 	            <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>
@@ -5916,7 +5915,7 @@ function append_files_to_list(path, files) {
             html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a gd-type="${item.mimeType}" href="${p}" class="${c}">
 	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
 	          <i class="mdui-icon material-icons">insert_drive_file</i>
-	            ${item.name}
+	            ${short_name}
 	          </div>
 	          <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
 	          <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>

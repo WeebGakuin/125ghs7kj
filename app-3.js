@@ -5862,6 +5862,7 @@ function append_files_to_list(path, files) {
         item.modifiedTime = utc2local(item.modifiedTime);
         item.size = formatFileSize(item.size);
         let short_name = item.name
+	console.log(short_name)
         let matches = short_name.match(regex);
         if (matches != null) {
             short_name = short_name.replace(matches[1], '');

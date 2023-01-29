@@ -5868,9 +5868,9 @@ function append_files_to_list(path, files) {
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">
-	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${short_name}">
+	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
 	            <i class="mdui-icon material-icons">folder_open</i>
-	              ${item.name}
+	              ${short_name}
 	            </div>
 	            <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
 	            <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>
@@ -5913,9 +5913,9 @@ function append_files_to_list(path, files) {
                 item["size"] = "— — —";
             }
             html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a gd-type="${item.mimeType}" href="${p}" class="${c}">
-	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${short_name}">
+	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
 	          <i class="mdui-icon material-icons">insert_drive_file</i>
-	            ${item.name}
+	            ${short_name}
 	          </div>
 	          <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
 	          <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>

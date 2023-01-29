@@ -5850,8 +5850,10 @@ function append_files_to_list(path, files) {
     var $list = $("#list");
     var is_lastpage_loaded = null === $list.data("nextPageToken");
     var is_firstpage = "0" == $list.data("curPageIndex");
+    var short_name = ""
     html = "";
     let targetFiles = [];
+    let regex = "(?P<title>.*?)(?: - ?(?P<season_episode>[A-Z0-9.]+[^ ]|\d+-\d+)?(?P<version>v\d+)?)? - (?P<dub>[A-Z]+[^ ])? ?(?P<uncut>UNCUT)? ?(?P<resolution>\d+p|\d+i) (?P<type>.*?) (?P<codec>.*?) -(?P<tag>.*?) \((?P<source>.*?)\).*?(?:\((?P<all_dub>((.*) Dub))\))?$$"
     for (i in files) {
         var item = files[i];
         var p = path + encodeURIComponent(item.name).replaceAll("%5C", "%5C%5C").replace(/[!'()*]/g, escape) + "/";		// Adding folder name to url 
@@ -5860,9 +5862,15 @@ function append_files_to_list(path, files) {
         }
         item.modifiedTime = utc2local(item.modifiedTime);
         item.size = formatFileSize(item.size);
+        let short_name = item.name
+        if (regex.test(item.name)) {
+            let matched = regex.exec(item.name);
+            let to_replace = matched.groups.title + " - ";
+            short_name = string.replace(to_replace, "");
+        }
         if (item.mimeType == "application/vnd.google-apps.folder") {
             html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">
-	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
+	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${short_name}">
 	            <i class="mdui-icon material-icons">folder_open</i>
 	              ${item.name}
 	            </div>

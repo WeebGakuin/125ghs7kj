@@ -5853,7 +5853,7 @@ function append_files_to_list(path, files) {
     html = "";
     let targetFiles = [];
     var pregex = "(.*? - )( ?([A-Z0-9.]+[^ ]|\d+-\d+)?(v\d+)?)?"
-    var sregex = "S(\d+)"
+    var sregex = /S(\d+)/
     for (i in files) {
         var item = files[i];
         var p = path + encodeURIComponent(item.name).replaceAll("%5C", "%5C%5C").replace(/[!'()*]/g, escape) + "/";		// Adding folder name to url 
@@ -5868,7 +5868,7 @@ function append_files_to_list(path, files) {
         if (matches != null) {
             short_name = short_name.replace(matches[1], '');
         }
-        if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(smatches != null)) {
+        if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(smatches != null)&&(matches!=null)) {
             short_name = "S0" + smatches[1] + " - " + short_name
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {

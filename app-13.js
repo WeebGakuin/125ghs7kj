@@ -5852,7 +5852,7 @@ function append_files_to_list(path, files) {
     var is_firstpage = "0" == $list.data("curPageIndex");
     html = "";
     let targetFiles = [];
-    var pregex = "(.*?)(?: - ?([A-Z0-9.]+[^ ]|\d+-\d+|[A-Z0-9.]+[^ ]-[A-Z0-9.]+[^ ])?(v\d+)?)? - (?P<dub>[A-Z]+[^ ])? ?(?P<uncut>UNCUT)? ?(?P<resolution>\d+p|\d+i) (?P<type>.*?) (?P<codec>.*?) -(?P<tag>.*?) \((?P<source>.*?)\).*?(?:\((?P<all_dub>((.*) Dub))\))?$$"
+    var pregex = "(.*?)(?: - ?([A-Z0-9.]+[^ ]|\d+-\d+|[A-Z0-9.]+[^ ]-[A-Z0-9.]+[^ ])?(v\d+)?)? - ([A-Z]+[^ ])? ?(UNCUT)? ?(\d+p|\d+i) (.*?) (.*?) -(.*?) \((.*?)\).*?(?:\((((.*) Dub))\))?$$"
     var sregex = /S(\d+)/
     for (i in files) {
         var item = files[i];

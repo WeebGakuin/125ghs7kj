@@ -5852,7 +5852,7 @@ function append_files_to_list(path, files) {
     var is_firstpage = "0" == $list.data("curPageIndex");
     html = "";
     let targetFiles = [];
-    var pregex = "(.*?)(?: - ?([A-Z0-9.]+[^ ]|\d+-\d+|[A-Z0-9.]+[^ ]-[A-Z0-9.]+[^ ])?(v\d+)?)? - ([A-Z]+[^ ])? ?(UNCUT)? ?(\d+p|\d+i) (.*?) (.*?) -(.*?) \((.*?)\).*?(?:\((((.*) Dub))\))?$$"
+    var pregex = /(.*?)\s*(?:-\s*([A-Z0-9.]+[^ ]|\d+-\d+|[A-Z0-9.]+[^ ]-[A-Z0-9.]+[^ ])?\s*(v\d+)?)?\s*-\s*([A-Z]+[^ ]*)?\s*(UNCUT)?\s*(\d+p|\d+i)\s*(.*?)\s*(.*?)\s*-\s*(.*?)\s*\((.*?)\)\s*(?:\((.*?)\))?/
     var sregex = /S(\d+)/
     for (i in files) {
         var item = files[i];
@@ -5867,10 +5867,13 @@ function append_files_to_list(path, files) {
             let matches = short_name.match(pregex);
             let smatches = short_name.match(sregex)
             if (matches != null) {
-                short_name = short_name.replace(matches[1], '');
+                short_name = short_name.replace(matches[1] + ' - ', '');
             }
-            if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(smatches != null)&&(matches!=null)) {
-                short_name = "S0" + smatches[1] + " - " + short_name
+            if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(matches!=null)) {
+                if (smatches != null)
+                    short_name = "S" + smatches[1].padStart(5, "0") + "E" + short_name
+                else
+                    short_name = "S01E" + short_name
         }
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {

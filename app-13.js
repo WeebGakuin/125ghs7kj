@@ -5873,7 +5873,8 @@ function append_files_to_list(path, files) {
                 if (smatches != null)
                     short_name = "S" + smatches[1].padStart(5, "0") + "E" + short_name
                 else
-                    short_name = "S01E" + short_name
+                    if (matches[2] != null)
+                        short_name = "S01E" + short_name
         }
         }
         if (item.mimeType == "application/vnd.google-apps.folder") {

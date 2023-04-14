@@ -5871,7 +5871,7 @@ function append_files_to_list(path, files) {
             }
             if ((short_name.includes("B-Global")||short_name.includes("HIDIVE"))&&(matches!=null)) {
                 if (smatches != null)
-                    short_name = "S" + smatches[1].padStart(5, "0") + "E" + short_name
+                    short_name = "S" + smatches[1].padStart(2, "0") + "E" + short_name
                 else
                     if (matches[2] != null)
                         short_name = "S01E" + short_name
